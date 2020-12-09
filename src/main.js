@@ -34,5 +34,5 @@ new Vue({
   el: '#app',
   render: h => h(App),
   vuetify,
-  router,
+  router
 });

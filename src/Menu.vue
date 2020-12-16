@@ -64,23 +64,12 @@ export default {
   name: 'Menu',
   components:{
   },
-  computed: {
-    loggedIn() {
-      return this.$store.state.auth.status.loggedIn;
-    }
-  },
-  created() {
-    if (!this.loggedIn) {
-      this.$router.push('/Login');
-    }
-  },
   methods:{
     gohome () {
       this.$router.push('/Menu/')
     },
     deconnexion() {
-      this.$store.dispatch('auth/logout');
-      this.$router.push('/Login');
+      this.$router.push('/')
     }
   },
   data: () => ({

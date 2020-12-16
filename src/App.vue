@@ -1,41 +1,15 @@
 <template>
   <v-app dark="dark">
     <router-view></router-view>
-    <v-footer app="app" padless dark>
-      <v-card
-          class="flex"
-          flat
-          tile
-      >
-        <v-card-title>
-          <strong>ESIEA</strong>
-          <v-spacer></v-spacer>
-          <v-btn
-              v-for="item in items"
-              :key="item.title"
-              :href="item.to"
-              rounded
-          >
-            <v-icon size="24px" left>
-              {{ item.icons }}
-            </v-icon>{{item.title}}
-          </v-btn>
-        </v-card-title>
-      </v-card>
+    <v-footer app="app">
+      <v-flex class="text-xs-center">© 2020. All rights reserved.</v-flex>
     </v-footer>
   </v-app>
 </template>
 
 <script>
-
 export default{
-  name: 'App',
-  data: () => ({
-    items: [
-      {icons: 'mdi-github', title: 'Dana', to: 'https://github.com/Soupra-D'},
-      {icons: 'mdi-github', title: 'Ced', to: 'https://github.com/Dedridec'}
-    ]
-  })
+  name: 'App'
 }
 </script>
 

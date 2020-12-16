@@ -8,7 +8,7 @@
           tile
       >
         <v-card-title>
-          <stron>ESIEA</stron>
+          <strong>ESIEA</strong>
           <v-spacer></v-spacer>
           <v-btn
               v-for="item in items"

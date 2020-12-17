@@ -98,7 +98,7 @@
 import UserService from '../services/user.service';
 export default {
 name: "CreerSondage",
-  data: vm => ({
+  data: () => ({
     today: new Date().toISOString().slice(0, 10),
     loading: false,
     setDisable: false,
@@ -116,8 +116,6 @@ name: "CreerSondage",
     ],
     dates: [],
     date: new Date().toISOString().substr(0, 10),
-    dateFormatted: vm.formatDate(new Date().toISOString().substr(0, 10)),
-    dateMysqlFormatted: '',
     menu: false,
     timeout: 3000,
     snackbar: false,
@@ -163,12 +161,6 @@ name: "CreerSondage",
       this.formName = '';
       this.date = new Date().toISOString().substr(0, 10);
       this.description = '';
-    },
-    formatDate (date) {
-      if (!date) return null
-
-      const [year,month,day] = date.split('-')
-      return `${day}/${month}/${year}`
     },
     mysqlDate (date) {
       if (!date) return null

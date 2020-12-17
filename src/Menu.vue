@@ -62,8 +62,6 @@
 <script>
 export default {
   name: 'Menu',
-  components:{
-  },
   computed: {
     loggedIn() {
       return this.$store.state.auth.status.loggedIn;
@@ -89,6 +87,7 @@ export default {
       { text: 'Créer sondage', title:"creerSondage", icon: 'mdi-plus' , to: '/Menu/CreerSondage'},
     ],
     drawer: null,
+    model: 1
   })
 }
 </script>

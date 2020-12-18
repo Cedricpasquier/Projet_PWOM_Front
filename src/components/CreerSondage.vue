@@ -58,7 +58,7 @@
                     class="mr-4"
                     @click="validate"
                 >
-                  Validate
+                  Valider
                 </v-btn>
 
                 <v-btn
@@ -66,7 +66,7 @@
                     class="mr-4"
                     @click="reset"
                 >
-                  Reset Form
+                  Réinitialiser
                 </v-btn>
               </v-form>
             </v-card>

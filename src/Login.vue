@@ -12,10 +12,10 @@
                 <v-icon x-large>mdi-account</v-icon>
               </div>
               <v-form>
-                <v-text-field v-model="user.username" light="light" prepend-icon="mdi-account-circle" label="username" type="username"></v-text-field>
-                <v-text-field v-model="user.email" v-if="logup" light="light" prepend-icon="mdi-email" label="Email" type="email"></v-text-field>
-                <v-text-field  v-model="user.password" light="light" prepend-icon="mdi-lock" label="Password" type="password"></v-text-field>
-                <v-text-field  v-model="repassword" v-if="logup" light="light" prepend-icon="mdi-lock" label="Password" type="password"></v-text-field>
+                <v-text-field v-model="user.username" light="light" prepend-icon="mdi-account-circle" label="nom d'utilisateur" type="username"></v-text-field>
+                <v-text-field v-model="user.email" v-if="logup" light="light" prepend-icon="mdi-email" label="email" type="email"></v-text-field>
+                <v-text-field  v-model="user.password" light="light" prepend-icon="mdi-lock" label="mot de passe" type="password"></v-text-field>
+                <v-text-field  v-model="repassword" v-if="logup" light="light" prepend-icon="mdi-lock" label="mot de passe" type="password"></v-text-field>
                 <v-alert
                     border="right"
                     colored-border
@@ -25,14 +25,14 @@
                 >
                   {{erreurMessage}}
                 </v-alert>
-                <v-btn v-if="!logup" class="my-2" @click="signIn" block="block" color="primary">Sign In</v-btn>
-                <v-btn v-if="logup" class="my-2" @click="signupNewUser" block="block" color="primary">Sign Up</v-btn>
+                <v-btn v-if="!logup" class="my-2" @click="signIn" block="block" color="primary">Se connecter</v-btn>
+                <v-btn v-if="logup" class="my-2" @click="signupNewUser" block="block" color="primary">S'enregister</v-btn>
               </v-form>
             </v-card-text>
           </v-card>
-          <div class="ma-3" >Don't have an account?
-            <v-btn v-if="!logup" v-on:click="logup = !logup; erreur = false; user.username='';user.password=''" light="light">Sign up</v-btn>
-            <v-btn v-if="logup" v-on:click="logup = !logup; erreur = false; user.username=''; user.email='';user.password='';repassword=''" light="light">Sign in</v-btn>
+          <div class="ma-3" >Vous n'avez pas de compte ?
+            <v-btn v-if="!logup" v-on:click="logup = !logup; erreur = false; user.username='';user.password=''" light="light">S'enregister</v-btn>
+            <v-btn v-if="logup" v-on:click="logup = !logup; erreur = false; user.username=''; user.email='';user.password='';repassword=''" light="light">Se connecter</v-btn>
           </div>
         </v-flex>
       </v-layout>
@@ -51,7 +51,7 @@
             color="error"
             @click="sheetCreationUser = !sheetCreationUser"
         >
-          close
+          fermer
         </v-btn>
         <div class="my-3">
           {{nameUserMessage}}
@@ -92,11 +92,11 @@ export default {
   methods: {
     signIn () {
       if(this.user.username == null || this.user.username === '') {
-        this.erreurMessage = "Please Enter User";
+        this.erreurMessage = "Entrez un nom d'utilisateur";
         this.erreur = true;
       } else {
         if(this.user.password == null || this.user.password === ''){
-          this.erreurMessage = "Please Enter password";
+          this.erreurMessage = "Entrez un mot de passe";
           this.erreur = true;
         } else {
           this.loading = true;
@@ -122,25 +122,25 @@ export default {
     ,
     signupNewUser(){
       if(this.user.username == null || this.user.username === '') {
-        this.erreurMessage = "Please Enter User";
+        this.erreurMessage = "Entrez un nom d'utilisateur";
         this.erreur = true;
       } else {
         if(this.user.email == null || this.user.email === '')
         {
-          this.erreurMessage = "Please Enter Email";
+          this.erreurMessage = "Entrez un e-mail";
           this.erreur = true;
         } else {
           if(!this.reg.test(this.user.email))
           {
-            this.erreurMessage = "Please Enter Correct Email";
+            this.erreurMessage = "Entrez un e-mail valide";
             this.erreur = true;
           } else {
             if(this.user.password == null || this.user.password === ''){
-              this.erreurMessage = "Please Enter password";
+              this.erreurMessage = "Entrez un mot de passe";
               this.erreur = true;
             } else {
               if (this.user.password !== this.repassword) {
-                this.erreurMessage = "Please Enter the same password twice";
+                this.erreurMessage = "Entrez le même mot de passe deux fois";
                 this.erreur = true;
               } else {
                 this.loading = true;

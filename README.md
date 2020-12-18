@@ -3,7 +3,7 @@
 ## Project configuration
 For the front of the website we choose a framework named Vue.js to make it single page.
 We merge it to a framework named vuetify to make the website more easily with prefab tools.
-For the IDE we used WebStorm WebStorm 2020.2.4 in order to easily integrate Node.js and the npm package manager.
+For the IDE we used WebStorm 2020.2.4 in order to easily integrate Node.js and the npm package manager.
 For the back we have used Spring boot JWT, this part is detailled in this git repository : https://github.com/Dedridec/Projet_PWOM_Back
 
 If you don't have Node.js you need to install it.

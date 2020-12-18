@@ -59,7 +59,7 @@ You can answer them by choosing the date(s) when you are available and click on 
 When you send it, a POST request is send to the server, the user is notify of the answer of the server, the survey panel then retract and become unclickable so it is impossible to answer twice.
 The check of already answer is made with a GET resquest that collect all answers of the user.
 
-<img src="src/img_readme/list_sondage.png" alt="list of survey">
+<img src="src/img_readme/list_sondages.png" alt="list of survey">
 
 
 #### Créer un sondage

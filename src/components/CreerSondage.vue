@@ -45,11 +45,10 @@
                       sm="6"
                   >
                     <v-combobox
-                        v-model="dates"
+                        v-model="frenshDatesFormat"
                         multiple
-                        label="Multiple picker in menu"
+                        label="Date(s) selectionnée(s)"
                         prepend-icon="mdi-calendar"
-                        readonly
                     ></v-combobox>
                   </v-col>
                 </v-row>
@@ -123,21 +122,11 @@ name: "CreerSondage",
   }),
 
   computed: {
-    computedDateFormatted: {
-      set(){
-        return this.date
-      },
-      get(){
-        return this.formatDate(this.date)
+    frenshDatesFormat: {
+      get (){
+        return this.frDate(this.dates)
       }
-    },
-  },
-
-  watch: {
-    date () {
-      this.dateFormatted = this.formatDate(this.date);
-      this.dateMysqlFormatted = this.mysqlDate(this.date);
-    },
+    }
   },
   methods: {
     validate () {
@@ -145,7 +134,7 @@ name: "CreerSondage",
         UserService.postForumlaire(this.formName,this.description,this.dates).then(
             response => {
               this.snakbarsText = response;
-              this.snakbarsText = "Le sondage "+ this.formName + " à été créé";
+              this.snakbarsText = "Le sondage \""+ this.formName + "\" à été créé";
               this.snackbar = true;
               this.reset()
             },
@@ -158,15 +147,15 @@ name: "CreerSondage",
       }
     },
     reset () {
-      this.formName = '';
-      this.date = new Date().toISOString().substr(0, 10);
-      this.description = '';
+      this.$refs.form.reset()
     },
-    mysqlDate (date) {
-      if (!date) return null
-
-      const [year,month,day] = date.split('-')
-      return `${day}-${month}-${year}`
+    frDate (dates) {
+      let frenshDates = [];
+      for(let index in dates){
+        const [year,month,day] = dates[index].split('-');
+        frenshDates.push(`${day}/${month}/${year}`);
+      }
+      return frenshDates;
     }
   },
 }

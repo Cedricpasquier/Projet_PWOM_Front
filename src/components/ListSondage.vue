@@ -4,13 +4,17 @@
       <v-container fill-height="fill-height" >
         <v-layout  align-center="align-center" justify-center="justify-center">
           <v-flex class="login-form text-xs-center ">
-            <v-expansion-panels>
+            <v-expansion-panels
+                v-model="panel"
+                multiple
+                v-if="renderComponent"
+                >
               <v-expansion-panel
                   v-for="item in items"
-                  v-model="selectedItem"
                   :key="item.id"
+                  :disabled="disabledItem[item.id-1]"
               >
-                <v-expansion-panel-header>
+                <v-expansion-panel-header >
                   <div class="h5 font-weight-bold">{{item.nomFormulaire}}</div>
                 </v-expansion-panel-header>
                 <v-expansion-panel-content>
@@ -28,8 +32,9 @@
 
                     <v-card-text>
                       <v-chip-group
-                          v-model="selection"
+                          v-model="selectionDates"
                           active-class="deep-purple accent-4 white--text"
+                          multiple
                           column
                       >
                         <v-chip v-for="index in item.dates"
@@ -41,7 +46,8 @@
                         color="cyan"
                         class="ma-4"
                         rigth
-                        @click="respondForm(item.id,item.dates[selection])"
+                        @click="respondForm(item.id,item.dates,item.nomFormulaire); disabledItem[item.id-1]=true"
+                        :disabled="disabledItem[item.id-1]"
                     >
                       Envoyer
                     </v-btn>
@@ -80,11 +86,14 @@ export default {
   data() {
     return {
       items: [],
-      selection: 1,
-      selectedItem: '0',
+      panel: [],
+      disabledItem: [],
+      selectionDates: [],
+      allResponses:[],
       snackbar: false,
       snakbarsText: '',
-      timeout: 3000
+      timeout: 3000,
+      renderComponent: true,
     };
   },
   computed: {
@@ -96,6 +105,16 @@ export default {
     UserService.getAllForm().then(
         response => {
           this.items = response.data;
+          UserService.getUserResp(this.currentUser.username).then(
+              response => {
+                this.allResponses = response.data;
+                this.assignDisabled();
+              },
+              error => {
+                this.allResponses = error.message;
+              }
+
+          );
         },
         error => {
           this.items = error.message;
@@ -104,11 +123,31 @@ export default {
     if (!this.currentUser) {
       this.$router.push('/login');
     }
+
+    if (!this.currentUser) {
+      this.$router.push('/login');
+    }
   },
   methods: {
-    respondForm(id,date) {
-      this.snakbarsText = "Vous avez selectionné " + date + " pour le formulaire " + id;
-      this.snackbar = true;
+    respondForm(id,dates,name) {
+      let dateToSend = [];
+      for(let index in this.selectionDates){
+        dateToSend.push(dates[index]);
+      }
+      UserService.postResponse(id,this.currentUser.username,dateToSend).then(
+          response => {
+            this.snakbarsText = response.data;
+            this.snakbarsText = "Votre répondu au formulaire \"" + name + "\"";
+            this.snackbar = true;
+            this.snackbar = true;
+            this.panel = [];
+          },
+          error => {
+            this.snakbarsText = error.message;
+            this.snakbarsText = "Une erreur est survenue pendant l'enregistrement";
+            this.snackbar = true;
+          })
+
     },
     formatDate (date) {
       if (!date) return null
@@ -116,6 +155,22 @@ export default {
       const [year,month,day] = date.split('-')
       return `${day}/${month}/${year}`
     },
+    assignDisabled () {
+      let found = 0;
+      this.items.forEach(elementsItem => {
+        this.allResponses.forEach(elementsResp => {
+          if(elementsItem.id == elementsResp.formId && elementsResp.user == this.currentUser.username){
+            found = 1
+          }
+        })
+        if(found == 1){
+          this.disabledItem.push(true);
+          found = 0;
+        } else {
+          this.disabledItem.push(false);
+        }
+      })
+    }
   }
 }
 </script>

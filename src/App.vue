@@ -35,7 +35,19 @@ export default{
       {icons: 'mdi-github', title: 'Dana', to: 'https://github.com/Soupra-D'},
       {icons: 'mdi-github', title: 'Ced', to: 'https://github.com/Dedridec'}
     ]
-  })
+  }),
+  computed: {
+    loggedIn() {
+      return this.$store.state.auth.status.loggedIn;
+    }
+  },
+  created() {
+    if (this.loggedIn) {
+      this.$router.push('/Menu/');
+    } else {
+      this.$router.push('/Login/');
+    }
+  },
 }
 </script>
 

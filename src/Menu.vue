@@ -6,7 +6,7 @@
       <v-list-item>
         <v-list-item-content>
           <v-list-item-title class="title">
-            App menu
+            Le menu magique
           </v-list-item-title>
         </v-list-item-content>
       </v-list-item>
@@ -41,7 +41,7 @@
     </v-navigation-drawer>
     <v-app-bar app color="teal lighten-3">
       <v-app-bar-nav-icon @click="drawer = !drawer"></v-app-bar-nav-icon>
-      <v-toolbar-title>Application</v-toolbar-title>
+      <v-toolbar-title>L'Application de dana et cédric</v-toolbar-title>
       <v-spacer></v-spacer>
       <v-btn icon @click="gohome">
         <v-icon>mdi-home</v-icon>

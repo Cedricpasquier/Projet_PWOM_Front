@@ -30,7 +30,6 @@ Vue.component('font-awesome-icon', FontAwesomeIcon);
 
 Vue.config.productionTip = false
 Vue.use(VueRouter);
-
 const routes = [
   {path: '/Login', component: Login},
   {path: '/Menu', component: Menu,

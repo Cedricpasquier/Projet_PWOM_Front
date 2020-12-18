@@ -17,12 +17,20 @@ class UserService {
         );
     }
 
+    postResponse(id,userString,dates){
+        return axios.post(API_URL + 'response',{
+            formId: id,
+            user : userString,
+            responseDates: dates
+        })
+    }
+
     getAllForm() {
         return axios.get(API_URL + 'getallform', { headers: authHeader() });
     }
 
-    getAdminBoard() {
-        return axios.get(API_URL + 'admin', { headers: authHeader() });
+    getUserResp(user) {
+        return axios.get(API_URL + 'gethisresp?user=' + user, { headers: authHeader() });
     }
 }
 export default new UserService();
